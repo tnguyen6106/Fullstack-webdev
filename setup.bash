@@ -1,5 +1,5 @@
 #!/bin/bash
 
-strServer="http://cs465.oregonctf.org/"
-strUser="CHANGE THIS"
-strPassword="CHANGE THIS"
+strServer="http://cs465.oregonctf.org"
+strUser="thong-nguyen"
+strPassword="mountain-mist"
