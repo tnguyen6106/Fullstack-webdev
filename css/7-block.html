@@ -6,16 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
 		<style type="text/css">
-			.header {
-				padding:10px;
+			.container {
+				display: inline-block;
 			}
-
+			.header {
+				padding:9px;
+				color:white;
+				background: black;
+				
+			}
+			.header, .content {
+				border: 1px solid black;
+			}
 			.content {
 				padding:10px;
+				position: relative;
+				top: 1px;
 			}
 
 			.content > ul {
 				margin:0px 0px 0px -20px;
+				list-style-type: square;
 			}
 		</style>
 	</head>
