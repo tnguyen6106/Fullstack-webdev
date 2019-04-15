@@ -6,9 +6,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 
 		<script type="text/javascript">
+			function compareNumbers(a, b) {
+				return a - b;
+			}
+			
 			var functionSort = function(intInput) {
 				// sort intInput and return the sorted array
-
+				intInput.sort(compareNumbers);
 				// note that like in c, an array is a reference to a continuous memory block
 				// while the input it is being passed by value, it points to the same memory block
 				// returning the input is thus not really necessary / is redundant
