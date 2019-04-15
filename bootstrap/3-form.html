@@ -32,6 +32,38 @@
 	<body>
 		<div class="container">
 			<!-- use col-sm-2 as well as col-sm-8 in the exercises, just like in the examples in the slides. -->
+			<form class="form-horizontal">
+				<div class="form-group row">
+					<label class="col-form-label col-sm-2">name:</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control">
+					</div>
+					
+				</div>
+
+				<div class="form-group row">
+					<label class="control-label col-sm-2" for="inputKey">gender:</label>
+					<!--<div class="col-sm-8 form-check">
+						<label class="form-check-label"><input type="radio" class="form-check-input"></label>
+					</div>-->
+					<div class="form-check col-sm-8">
+						<input type="radio" class="form-check-input" id="inputKey" style="margin-left: -5px">
+						<label class="form-check-label" for="inputKey" style="margin-left: 15px">male</label>
+					</div>
+
+					<div class="form-check col-sm-8"> 
+							<input type="radio" class="form-check-input" id="inputKey1" style="margin-left: 185px">
+							<label class="form-check-label" for="inputKey1" style="margin-left: 205px">female</label>
+					</div>
+					<div class="form-check col-sm-8">
+							<input type="radio" class="form-check-input" id="inputKey1" style="margin-left: 185px" checked>
+							<label class="form-check-label" for="inputKey1" style="margin-left: 205px">other</label>
+					</div>
+
+
+					
+				</div>
+			</form>
 		</div>
 	</body>
 </html>
