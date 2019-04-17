@@ -27,6 +27,15 @@
 			.form-check-label {
 				line-height:28px;
 			}
+
+			select.form-control, label#majorLabel, div#textArea {
+				margin-top: -16px;
+			}
+
+			button {
+				margin-left: 15px;
+				margin-top: -19px;
+			}
 		</style>
 	</head>
 	<body>
@@ -59,7 +68,30 @@
 						</div>
 
 					</div>
-					
+				</div>
+
+				<div class="form-group row">
+					<label id="majorLabel" class="col-form-label col-sm-2">major:</label>
+					<div class="form-group col-sm-8">
+						<select name="mutipleselect" id="multiple" multiple class="form-control" size="3">
+							<option>math</option>
+							<option selected>computer science</option>
+							<option>physics</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row" id="textArea">
+					<label id="textArea" for="text-area" class="col-form-label col-sm-2">notes:</label>
+					<div class="form-group col-sm-8">
+						<textarea name="text-area" id="text-area" rows="2" class="form-control"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="form-group offset-sm-2">
+						<button class="btn btn-primary">submit</button>
+					</div>
 				</div>
 			</form>
 		</div>
