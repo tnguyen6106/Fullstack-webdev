@@ -8,12 +8,11 @@
 		<script type="text/javascript">
 			var functionEnumerate = function(dblInput) {
 				// return a string of the concatenated numbers in dblInput, separated by commas and with three digits after the decimal point
-				var toReturn = "";
+				/*var toReturn = "";*/
 				dblInput.forEach(function(element, index) {
 					dblInput[index] = element.toFixed(3);
 				});
-				toReturn = dblInput.join(", ");
-				return toReturn;
+				return dblInput.join(", ");
 			};
 
 			console.log(functionEnumerate([5.1, 7.4, 3.3, 6.8, 3.0])); // expected: '5.100, 7.400, 3.300, 6.800, 3.000'
