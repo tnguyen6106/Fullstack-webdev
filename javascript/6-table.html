@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
 	</head>
 	<body>
-		<div id="output">output</div>
+		<div id="output"></div>
 
 		<script type="text/javascript">
 			var functionCreate = function(strInput) {
@@ -14,20 +14,50 @@
 				// you can either create a string that represents the html and use innerHTML to set it or you can use createElement / appendChild
 				// should this function be called multiple times, the output div should only contain the table of the most recent call
 
-				document.getElementById('output').innerHTML = '';
+				var newStringReplaced = strInput.replace(/\n/gi, "@");
+
+				//Courtesy to Isaac in https://stackoverflow.com/questions/19888689/remove-empty-strings-from-array-while-keeping-record-without-loop
+				//for helping me on this splitting
+				var arrayString = newStringReplaced.split(/(@)/).join(",").split(",").filter(Boolean);
+				var table = "<table border='1'><tbody></tbody></table>";
+				document.getElementById("output").innerHTML = table;
+				
+				var getTableBody = document.getElementsByTagName("tbody")[0];
+				
+				var tableRow = getTableBody.insertRow();
+				var arrayLen = arrayString.length;
+				var count = 0;
+				for(var i = arrayLen-1; i >= 0; i--) {	
+					if(arrayString[arrayLen-1] == "@" && count == 0) {
+						count += 1;
+						continue;	
+					}
+					var td = tableRow.insertCell();
+					td.innerHTML = arrayString[i];
+					if(arrayString[i-1] == "@") {
+						tableRow = getTableBody.insertRow();
+						i = i - 1;
+					}
+				}
+
+
+
+
+				//document.getElementById('output').textContent;
+				
 			};
 
 			functionCreate('a,b,c\n1,2,3\n'); // the new line at the end should not make a difference
 			
-			// expected table for functionCreate('a,b\n'):
+			//expected table for functionCreate('a,b\n'):
 			//   <table border="1">
-			//     <tr>
+			//	   <tr>
 			//       <td>a</td>
 			//       <td>b</td>
 			//     </tr>
 			//   </table>
 			
-			// expected table for functionCreate('a,b'):
+			//expected table for functionCreate('a,b'):
 			//   <table border="1">
 			//     <tr>
 			//       <td>a</td>
