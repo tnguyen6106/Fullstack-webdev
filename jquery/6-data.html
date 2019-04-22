@@ -22,14 +22,11 @@
 					for(var j = 1; j <= intWidth; ++j){
 						var data = $('<td>');
 						data.text('click me');
-						//data.on("click", {value: i, value2: j} ,function(event){
-							//data.text(event.data.value + '.' + event.data.value2);
-						//});
+						
 						data.data('toStore', i + "." + j);
 						console.log(data.data('toStore'));
 						jQuery(data).on('click', function() {
-							//var firstNum = data.data("toStore".first);
-							//var secondNum = data.data("toStore".second);
+							
 							$(this).text($(this).data('toStore'));
 						});
 						row.append(data);
@@ -39,7 +36,6 @@
 
 				$('#output').append(table);
 				return jQuery('#output');
-				//return jQuery('<table></table>');
 			};
 
 			jQuery('#output')
