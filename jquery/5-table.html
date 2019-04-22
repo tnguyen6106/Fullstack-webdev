@@ -15,8 +15,20 @@
 				// create a table with the width and height and in doing so, set the text to each cell / td element to 'y.x' (see example below)
 				// remember that you were already asked to create a table in the javascript section, but here you are asked to return a jquery object that represents a table
 				// to do this, you will have create jquery elements that represent the tr / td elements and append them systematically to a jquery table element
-
-				return jQuery('<table></table>');
+				//Thank you for the help from sransara in https://stackoverflow.com/questions/8749236/create-table-with-jquery-append
+				var table = $('<table>').attr('border', '1');
+				for(var i = 1; i <= intHeight; ++i) {
+					var row = $('<tr>');
+					for(var j = 1; j <= intWidth; ++j){
+						var data = $('<td>').text(i + '.' + j);
+						row.append(data);
+					}
+					table.append(row);
+				}
+				$('#output').append(table);
+				return jQuery('#output');
+					//.foreach()
+						//.append();
 			};
 
 			jQuery('#output')
