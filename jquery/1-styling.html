@@ -27,14 +27,28 @@
 
 		<script type="text/javascript">
 			// add 'first' as a class to jQuery('#first') and further specify a background color of gray (#CCCCCC)
-
+				$('#first')
+					.addClass('first') // first is an id
+					.css({
+						'background-color': '#CCCCCC'
+					})
 			// make the text in jQuery('#second') bold as well as italic
-
+				$('#second')
+					.css({
+						'font-style': 'italic',
+						'font-weight': 'bold'
+					})
 			// remove 'third' as a class from jQuery('#third') and apply the style of this class directly to the element instead
+				$('#third').removeClass('third');
+				$('#third').css({'position': 'fixed', 'top': '10px', 'right': '10px'});
+				//$('third').attr('style', "position: fixed; top: 10px; right: 10px");
 
 			var functionFixed = function(strSelector) {
 				// return whether jQuery(strSelector) has a fixed position
-
+				//console.log('testing is' + $(strSelector).attr('position'));
+				if($(strSelector).css('position') == 'fixed') {
+					return true;
+				}
 				return false;
 			};
 
@@ -43,7 +57,10 @@
 
 			var functionClass = function(strSelector, strClass) {
 				// return whether jQuery(strSelector) has strClass (the name of a css class) attached to it
-
+				if($(strSelector).hasClass(strClass)) {
+					console.log("is true");
+					return true;
+				}
 				return false;
 			};
 
