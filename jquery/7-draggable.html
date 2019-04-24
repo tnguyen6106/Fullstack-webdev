@@ -46,6 +46,7 @@
 			// you can try setting the position of jQuery('#draggable') to event.pageX / .pageY but you eventually have to also incorporate the relative position that we computed in the mousedown event
 			jQuery(document).on('mouseup', function(event) {
 				dragging = false;
+				
 			});
 			// attach a mouseup listener to jQuery(document) that resets the global is-being-dragged flag, such that the dragging will stop once you lift the mouse button
 		</script>
