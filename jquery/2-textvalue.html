@@ -18,7 +18,7 @@
 				// determine whether the content of jQuery(strSelector) should be retrieved by using .val() or .text() and return this content
 				//Credits to Andreas Furster in https://stackoverflow.com/questions/1318076/jquery-hasattr-checking-to-see-if-there-is-an-attribute-on-an-element
 				//for the if statement below
-				var attribute = $(strSelector).attr('value');
+				var attribute = $(strSelector).attr('value'); //can also use .is('input') to check for the element tag
 				if(typeof attribute !== typeof undefined && attribute !== false) {
 					return $(strSelector).val();
 				}
@@ -29,7 +29,7 @@
 				// determine whether the content of jQuery(strSelector) should be set by using .val() or .text() and set it to strContent
 				//Credits to Andreas Furster in https://stackoverflow.com/questions/1318076/jquery-hasattr-checking-to-see-if-there-is-an-attribute-on-an-element
 				//for the if statement below
-				var attribute2 = $(strSelector).attr('value');
+				var attribute2 = $(strSelector).attr('value'); //can also use .is('input') to check for the element tag
 				if(typeof attribute2 !== typeof undefined && attribute2 !== false) {
 					$(strSelector).val(strContent);
 				}
