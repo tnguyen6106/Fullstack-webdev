@@ -15,14 +15,7 @@ const server = http.createServer(function(req, res){
 // http://localhost:8080/cookie should return 'i gave you a cookie' in plain text and set 'hello=world' as a cookie
 
 // http://localhost:8080/check should return 'yes' / 'no' in plain text depending on whether the browser has the 'hello' cookie
-  // if (req.url === '/') {
-  //     res.writeHead(404, {
-  //         'Content-Type': 'text/plain'
-  //     });
-  //     res.write('you have accessed the root');
-  //     res.end();
-    //const currentURL = require('querystring').parse(req.url);
-    console.log(req.url);
+  
     if (req.url.indexOf('/missing') === 0) {
          res.writeHead(404, {
               'Content-Type': 'text/plain'
@@ -65,7 +58,6 @@ const server = http.createServer(function(req, res){
         res.end();
     }
     else {
-        console.log(res.statusCode);
         res.end();
     }
 });
