@@ -6,25 +6,27 @@ const server = http.createServer(function(req, res){
     const identRegEx = /ident=/;
     const cookieFromHeader = req.headers.cookie;
     var string;
-    if(cookieFromHeader === undefined) {
-        res.writeHead(200, {
-            'Content-Type': 'text/plain',
-            'Set-Cookie': 'ident=' + req.url
-        });
-        res.write('you must be new');
-        console.log(req.headers.cookie);
-        res.end();
-    } else if(identRegEx.test(cookieFromHeader)) { // found ident= from last visited
-            string = cookieFromHeader.substring(6);
+    if(req.url != '/favicon.ico') {
+        if(cookieFromHeader === undefined) {
             res.writeHead(200, {
                 'Content-Type': 'text/plain',
                 'Set-Cookie': 'ident=' + req.url
             });
-        res.write('last time you visited "' + string + '"');
-        console.log(req.headers.cookie);
-        res.end();
-    } else {
-        res.end();
+            res.write('you must be new');
+            console.log(req.headers.cookie);
+            res.end();
+        } else if(identRegEx.test(cookieFromHeader)) { // found ident= from last visited
+                string = cookieFromHeader.substring(6);
+                res.writeHead(200, {
+                    'Content-Type': 'text/plain',
+                    'Set-Cookie': 'ident=' + req.url
+                });
+            res.write('last time you visited "' + string + '"');
+            console.log(req.headers.cookie);
+            res.end();
+        } else {
+            res.end();
+        }
     }
 // http://localhost:8080/test should return 'last time you visited "/hello"' in plain text
 
