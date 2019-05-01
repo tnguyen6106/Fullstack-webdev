@@ -50,13 +50,13 @@ const server = http.createServer(function(req, res){
         res.write('i gave you a cookie');
         res.end();
     } else if(req.url === '/check') {
-        var cookieString = req.headers.cookie;
-        var helloRegex = /hello=/;
+        var cookieString = req.headers.cookie; //Get cookie from header
+        var helloRegex = /hello=/; //regex to check with cookie string returned from header
 
         res.writeHead(200, {
             'Content-Type' : 'text/plain',
         });
-        
+
         if(helloRegex.test(cookieString) === true) {
             res.write('yes');
         } else {
