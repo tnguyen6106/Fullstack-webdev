@@ -1,9 +1,31 @@
 'use strict';
 
 var http = require('http'); // do not change this line
-
+const server = http.createServer(function(req, res){
 // http://localhost:8080/hello should return 'you must be new' in plain text and set an ident cookie
-
+    const identRegEx = /ident=/;
+    const cookieFromHeader = req.headers.cookie;
+    var string;
+    if(cookieFromHeader === undefined) {
+        res.writeHead(200, {
+            'Content-Type': 'text/plain',
+            'Set-Cookie': 'ident=' + req.url
+        });
+        res.write('you must be new');
+        console.log(req.headers.cookie);
+        res.end();
+    } else if(identRegEx.test(cookieFromHeader)) { // found ident= from last visited
+            string = cookieFromHeader.substring(6);
+            res.writeHead(200, {
+                'Content-Type': 'text/plain',
+                'Set-Cookie': 'ident=' + req.url
+            });
+        res.write('last time you visited "' + string + '"');
+        console.log(req.headers.cookie);
+        res.end();
+    } else {
+        res.end();
+    }
 // http://localhost:8080/test should return 'last time you visited "/hello"' in plain text
 
 // http://localhost:8080/world should return 'last time you visited "/test"' in plain text
@@ -23,3 +45,6 @@ var http = require('http'); // do not change this line
 // [the server restarts and looses all cookies]
 
 // http://localhost:8080/servus should return 'you must be new' in plain text and set an ident cookie
+});
+console.log('server listerning on port 8080');
+server.listen(process.env.PORT || 8080)
