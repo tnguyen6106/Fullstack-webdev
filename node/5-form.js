@@ -3,6 +3,69 @@
 var http = require('http'); // do not change this line
 var querystring = require('querystring'); // do not change this line
 
+let newMessages = ''; // Global variable to hold message from post request in when entering /new
+const server = http.createServer(function(req, res){
+    if(req.url === '/new') {
+        //Use events 'data' and 'end' to get POST requests
+        req.on('data', function(chunk) {
+            //console.log(chunk);
+            newMessages += chunk.toString();
+            newMessages += '&';
+        });
+        req.on('end', function() {
+            //console.log(newMessages);
+        });
+        //==================================================
+        res.writeHead(200, {
+            'Content-Type': 'text/plain'
+        });
+        res.write('thank you for your message');
+        res.end();
+    } else if(req.url === '/list') {
+        var listMessages = '';
+        var formattedString = newMessages.split('&').filter(Boolean); // Split the string in the global variable
+        //console.log(formattedString);
+        for(var i = 0; i < formattedString.length; ++i) {
+            if(/name=/.test(formattedString[i])) { // found name=
+                var string1 = formattedString[i].substring(5); // Split substring comes after name=
+                listMessages += string1 + ': ';
+            }else if(/message=/.test(formattedString[i])) { // found message=
+                var string2 = formattedString[i].substring(8); // Split substring comes after message=
+                listMessages += string2;
+
+                //If i is the last index of formatted string, don't add \n
+                if(i !== formattedString.length - 1) {
+                    listMessages += '\n';
+                }
+            }
+        }
+        //console.log(listMessages);
+        res.writeHead(200, {
+            'Content-Type': 'text/plain'
+        });
+        res.write(listMessages);
+        res.end();
+    } else if(req.url === '/form') {
+        res.writeHead(200, {
+        	'Content-Type': 'text/html'
+        });
+        res.write('<!DOCTYPE html>');
+        res.write('<html>');
+        	res.write('<body>');
+        		res.write('<form action="/new" method="post">');
+        			res.write('<input type="text" name="name">');
+        			res.write('<input type="text" name="message">');
+        			res.write('<input type="submit" value="submit">');
+        		res.write('</form>');
+        	res.write('</body>');
+        res.write('</html>');
+        res.end();
+    } else{
+        res.end();
+    }
+});
+console.log('server listerning on port 8080');
+server.listen(process.env.PORT || 8080)
 // http://localhost:8080/form should return the form as shown below
 //   res.writeHead(200, {
 //   	'Content-Type': 'text/html'
