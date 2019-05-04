@@ -9,7 +9,47 @@
 
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment.min.js"></script>
 	</head>
-	<body>
+	<body>	
+		<script type="text/javascript">
+			var table = jQuery('<table border="1"><tbody></tbody></table>');
+			var row = jQuery('<tr></tr>');
+			row.append(jQuery('<th></th>').text('name'));
+			row.append(jQuery('<th></th>').text('value'));
+			row.append(jQuery('<th></th>').text('change'));
+			row.append(jQuery('<th></th>').text('time'));
+			row.append(jQuery('<th></th>').text('volume'));
+			table.append(row);
+			{{#objectStocks}}
+			var newRow = jQuery('<tr></tr>');
+			newRow.append("<td>" + '{{ strName }}' + "</td>");
+			newRow.append('<td>' + {{ dblValue }}.toFixed(2) + '</td>');
+			if({{dblChange}} < 0) {
+				newRow.append('<td style="background-color: rgb(188, 103, 114);">' + {{ dblChange }}.toFixed(2) + '</td>');
+			} else {
+				newRow.append('<td style="background-color: rgb(173, 196, 162);">' + {{ dblChange }}.toFixed(2) + '</td>');
+			} 
+			newRow.append('<td>' + moment({{ intTime }}).format('YYYY.MM.DD - HH:mm:ss.SSS') + '</td>');
+
+			newRow.append('<td>' + formatNumber({{ intVolume }}) + '</td>');
+			table.append(newRow);
+			table.appendTo('body');
+			{{/objectStocks}}
+			{{^objectStocks}}
+			table.appendTo('body');
+			{{/objectStocks}}
+
+			function formatNumber(number) {
+				if(isNaN(number)) {
+					return number;
+				} else if (number < 1000000) {
+					return (number/1000).toFixed(1) + ' T';
+				} else if (number < 1000000000) {
+					return (number/1000000).toFixed(1) + ' M';
+				} else {
+					return (number/1000000000).toFixed(1) + ' B';
+				}
+			}
+		</script>
 		<!--
 			given a javascript object like:
 				{
