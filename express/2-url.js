@@ -2,8 +2,46 @@
 
 var express = require('express'); // do not change this line
 
-// http://localhost:8080/ should return 'you have accessed the root' in plain text
+const server = express();
 
+// http://localhost:8080/ should return 'you have accessed the root' in plain text
+server.get('/', function(req, res) {
+    
+    res.set({
+        'Content-Type': 'text/plain'
+    });
+    res.write('you have accessed the root');
+    res.status(200);
+    res.end();
+});
+
+server.get('/test/:userID', function(req, res) {
+    res.set({
+        'Content-Type': 'text/plain'
+    });
+    res.write('you have accessed "' + req.params.userID + '" within test');
+    res.end();
+});
+
+server.get('/attributes', function(req, res) {
+    const attrObj = req.query;
+    //console.log(attrObj);
+    res.set({
+        'Content-Type': 'text/html'
+    });
+    var table = '<!DOCTYPE html><html><body><table border="1">';
+    for(var each in attrObj) {
+        table += '<tr><td>' + each + '</td>' + '<td>' + attrObj[each] + '</td></tr>'; 
+        //console.log(attrObj[each]);
+    }
+    table += '</table></body></html>';
+    res.write(table);
+    res.end();
+});
+
+server.get('*', function(req, res) {
+    res.end();
+});
 // http://localhost:8080/test/hello should return 'you have accessed "hello" within test' in plain text
 
 // http://localhost:8080/test/world should return 'you have accessed "world" within test' in plain text
@@ -30,3 +68,5 @@ var express = require('express'); // do not change this line
 //       </table>
 //     </body>
 //   </html>
+console.log('serving on port 8080');
+server.listen(process.env.PORT || 8080);
