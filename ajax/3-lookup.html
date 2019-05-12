@@ -55,7 +55,7 @@
 						$('#first').attr('value', objectData.strFirst);
 						$('#last').attr('value', objectData.strLast);
 						$(':input').filter(function(){
-							return this.value == objectData.strGender
+							return this.value == objectData.strGender;
 						}).attr('checked', 'checked');
 						$('#random').attr('value', objectData.strRandom);
 					}
