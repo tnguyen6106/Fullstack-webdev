@@ -16,6 +16,15 @@
 			// when somebody enters 'b' into the input textbox, the script should make a get request to: http://cs465.oregonctf.org/playground/ajax/suggest.json?strFile=b
 			// the data that is being received by this query is in the json format and might look like: { 'strFiles':['bash','bunzip2','busybox'] }
 			// this received data should subsequently set as the content of the output element as follows: 'bash\nbunzip2\nbusybox'
+			$('#input').on('input', function() {
+				$.ajax({
+					'type': 'GET',
+					'url': 'http://cs465.oregonctf.org/playground/ajax/suggest.json?strFile=' + $('#input').val(),
+					'success': function(objectData) {
+						$('#output').text(objectData.strFiles.join('\n'));
+					}
+				})
+			});
 		</script>
 	</body>
 </html>
