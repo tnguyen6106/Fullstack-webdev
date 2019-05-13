@@ -62,7 +62,43 @@
 
 		<script type="text/javascript">
 			var objectSocket = io.connect('http://localhost:8080/'); // do not change this line
+			var dragging = false;
+			var targetID = '';
+			var intShiftX = 0;
+			var intShiftY = 0;
 
+			
+			jQuery('.draggable').on('mousedown', function(objectEvent) {
+					targetID = objectEvent.target.id;	
+					dragging = true;
+					intShiftX = objectEvent.pageX - jQuery(this).offset().left;
+					intShiftY = objectEvent.pageY - jQuery(this).offset().top;
+			});
+			jQuery('.draggable').on('mouseup', function(objectEvent) {
+				dragging = false;
+			})
+			jQuery('.draggable').on('mousemove', function(objectEvent) {
+				if(dragging === true) {
+					$('#'+ targetID).offset({
+						'left': objectEvent.pageX - intShiftX,
+						'top': objectEvent.pageY - intShiftY
+					});
+					objectSocket.emit('drag', {
+						'strIdent': targetID,
+						'intLeft': objectEvent.pageX - intShiftX,
+						'intTop': objectEvent.pageY - intShiftY
+					})
+				}
+			})
+			objectSocket.on('drag', function(data) {
+				if(Object.keys(data).length !== 0) {
+					$('#'+data.strIdent).css({
+						'top': data.intTop,
+						'left': data.intLeft
+					})
+				}
+			})
+			
 			// when dragging an element around, send a 'drag' event to the server containing the strIdent of the element and the new intLeft as well as the new intTop position
 			// for example, when dragging the first div to the right, the 'drag' event might contain: { 'strIdent':'first', 'intLeft':100, 'intTop':10 }
 
